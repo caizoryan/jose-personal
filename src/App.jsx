@@ -4,7 +4,10 @@ import { Transition } from "solid-transition-group"
 let [data, setData] = createSignal([])
 
 let aliases = {
-  "360b": "360 Safety"
+  "360b": "360 Safety",
+  "mock-up": "Hyperbolic Cod3x UI Design",
+  "second_wind": "Second Wind Publication",
+  "intel": "Intel Graphics"
 }
 
 async function get_channel(slug) { return await fetch("https://api.are.na/v2/channels/" + slug + "?per=50").then(res => res.json()) }
@@ -12,17 +15,36 @@ async function get_channel(slug) { return await fetch("https://api.are.na/v2/cha
 get_channel("3-hummus").then((res) => {
   let names = {}
   res.contents.forEach((block) => {
-    if (block.class != "Image") return
+    if (block.class == "Image" || block.class == "Attachment") {
+      if (!names[block.title]) { names[block.title] = { images: [] } }
 
-    if (!names[block.title]) { names[block.title] = [] }
-    names[block.title].push(block.image.display.url)
+      names[block.title].images.push(block.image.display.url)
+
+      if (block.class == "Attachment") {
+        console.log("blcok", block)
+        names[block.title].video = block.attachment.url
+      }
+    }
+
+  })
+
+  res.contents.forEach(block => {
+    if (block.class == "Text") {
+      console.log("text", block.title)
+      console.log("name", names[block.title])
+      if (names[block.title]) {
+        names[block.title].desc = block.content
+      }
+    }
 
   })
 
   let d = Object.entries(names)
     .map(([key, value]) => ({
       title: aliases[key] ? aliases[key] : key,
-      images: value
+      images: value.images,
+      video: value.video,
+      desc: value.desc
     }))
 
   setData(d)
@@ -102,10 +124,16 @@ function ProjectPage() {
           onclick={() => setSelected(undefined)}>Back</div>
 
         <h4 class="project-page-title">{selected_project().title}</h4>
+        <Show when={selected_project().desc}> <p class="description">{selected_project().desc}</p> </Show>
         <div class="project-page-image-container">
-          <For each={selected_project().images}>
-            {(image) => <img src={image}></img>}
-          </For>
+          <Show when={selected_project().video}>
+            <video src={selected_project().video} controls></video>
+          </Show>
+          <Show when={!selected_project().video}>
+            <For each={selected_project().images}>
+              {(image) => <img src={image}></img>}
+            </For>
+          </Show>
         </div>
       </div>
     </div>
