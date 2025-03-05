@@ -1,0 +1,199 @@
+@import url("https://use.typekit.net/guy7hgk.css");
+
+:root {
+	--green: rgb(38, 157, 68);
+	--black: #222222;
+	--block-size: 40px;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	font-family: "altivo", sans-serif;
+	color: var(--green)
+}
+
+.container {
+	width: 100vw;
+	height: 100vh;
+	/* overflow: hidden; */
+
+}
+
+.content-grid {
+	display: grid;
+	grid-template-columns: 2fr 3fr;
+	width: 100vw;
+	height: 85vh;
+
+	background-size: 40px 40px;
+	background-image:
+		linear-gradient(to right, var(--green) 1px, transparent 1px),
+		linear-gradient(to bottom, var(--green) 1px, transparent 1px);
+}
+
+.title-bar {
+	/* border: 1px solid red; */
+	height: 15vh;
+	width: 100vw;
+}
+
+.title-text {
+	font-size: 4em;
+	font-weight: 500;
+	color: var(--green);
+	padding: .5em;
+}
+
+.project-page-title {
+	font-size: 4em;
+	font-weight: 500;
+	color: var(--green);
+	padding: .5em;
+	margin-top: .5em;
+}
+
+.project-page-image-container {
+	padding: 1em;
+	overflow-y: scroll;
+	height: 80vh;
+	width: 100vw;
+}
+
+.project-page-image-container img {
+	width: 45vw;
+	padding: 1em;
+}
+
+.slide-fade-enter-active,
+.slide-fade-exit-active {
+	transition: opacity 0.3s, transform 0.3s;
+}
+
+.slide-fade-enter,
+.slide-fade-exit-to {
+	transform: translateX(10px);
+	opacity: 0;
+}
+
+.slide-fade-enter {
+	transform: translateX(-10px);
+}
+
+.close {
+	position: absolute;
+	left: 2em;
+	top: 2em;
+
+	cursor: pointer;
+}
+
+
+.left {
+	/* border: 1px solid red; */
+	display: grid;
+	grid-template-rows: 3fr 1fr;
+}
+
+.right {
+	/* border: 1px solid red; */
+}
+
+.splash-container {
+	overflow: hidden;
+}
+
+.splash-inside {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+
+	justify-content: center;
+	align-items: center;
+}
+
+.project-title {
+	background-color: white;
+	padding: 1em;
+	/* //width: 100%; */
+	border: 1px solid var(--green);
+	border-bottom: none;
+	cursor: pointer;
+	font-size: 1.2em;
+	font-weight: 500;
+	transition: all 100ms linear
+}
+
+.project-title:hover {
+	transition: all 100ms linear;
+	background-color: var(--green);
+	color: white;
+}
+
+.floating {
+	margin: 1.5em;
+}
+
+.text {
+	padding: 1em;
+	border: 1px solid var(--green);
+	border-top: none;
+	background-color: white;
+}
+
+p {
+	margin-bottom: 1em;
+}
+
+.images:last-child {
+	border-bottom: 1px solid var(--green);
+}
+
+.images .text-head {
+	border-bottom: none;
+}
+
+
+.number {
+	background-color: var(--green);
+	border-radius: 100px;
+	color: white;
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	text-align: center;
+	margin: 0 auto;
+	margin-right: .5em;
+	padding: .2em;
+}
+
+.project-page {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: white;
+	z-index: 100;
+}
+
+.text-head {
+	height: var(--block-size);
+	font-size: 1.5em;
+	font-weight: 500;
+	color: var(--green);
+	background-color: white;
+	padding: 1em;
+	/* width: 100%; */
+	border: 1px solid var(--green);
+}
+
+.hover-image {
+	position: fixed;
+	right: 1em;
+	bottom: 1em;
+	width: 30vw;
+	border: 1px var(--green) solid;
+	box-shadow: 0 0 20px 5px rgba(38, 157, 68, .3);
+}
