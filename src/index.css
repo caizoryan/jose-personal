@@ -1,16 +1,22 @@
 @import url("https://use.typekit.net/guy7hgk.css");
 
 :root {
-	--green: rgb(38, 157, 68);
-	--black: #222222;
 	--block-size: 40px;
+
+	--black: #222222;
+	--grey: #dddddd;
+	--blue: #3a94be;
+	--yellow: #fc9f00;
+	--red: #b2293e;
+	--green: #246751;
 }
 
 * {
 	padding: 0;
 	margin: 0;
-	font-family: "altivo", sans-serif;
-	color: var(--green)
+	font-family: "polymath", sans-serif;
+	color: var(--black);
+	cursor: url(https://3.bp.blogspot.com/_gpPAAOeLVBM/TJhWw7MZKPI/AAAAAAAAAFc/SjgcMCFSKaE/s1600/cur116.png), auto;
 }
 
 .container {
@@ -24,12 +30,12 @@
 	display: grid;
 	grid-template-columns: 2fr 3fr;
 	width: 100vw;
-	height: 85vh;
+	height: 100vh;
 
 	background-size: 40px 40px;
 	background-image:
-		linear-gradient(to right, var(--green) 1px, transparent 1px),
-		linear-gradient(to bottom, var(--green) 1px, transparent 1px);
+		linear-gradient(to right, var(--grey) 1px, transparent 1px),
+		linear-gradient(to bottom, var(--grey) 1px, transparent 1px);
 }
 
 .title-bar {
@@ -39,16 +45,16 @@
 }
 
 .title-text {
-	font-size: 4em;
+	font-size: 3em;
 	font-weight: 500;
-	color: var(--green);
+	color: var(--black);
 	padding: .5em;
 }
 
 .project-page-title {
 	font-size: 4em;
 	font-weight: 500;
-	color: var(--green);
+	color: var(--blue);
 	padding: .5em;
 	margin-top: .5em;
 }
@@ -92,7 +98,7 @@
 .left {
 	/* border: 1px solid red; */
 	display: grid;
-	grid-template-rows: 3fr 1fr;
+	grid-template-rows: 50% 50%;
 }
 
 .right {
@@ -127,7 +133,7 @@
 
 .project-title:hover {
 	transition: all 100ms linear;
-	background-color: var(--green);
+	background-color: var(--blue);
 	color: white;
 }
 
@@ -137,7 +143,7 @@
 
 .text {
 	padding: 1em;
-	border: 1px solid var(--green);
+	border: 1px solid var(--black);
 	border-top: none;
 	background-color: white;
 }
@@ -156,9 +162,9 @@ p {
 
 
 .number {
-	background-color: var(--green);
+	background-color: var(--yellow);
 	border-radius: 100px;
-	color: white;
+	color: var(--yellow);
 	width: 30px;
 	height: 30px;
 	display: inline-block;
@@ -179,21 +185,22 @@ p {
 }
 
 .text-head {
-	height: var(--block-size);
-	font-size: 1.5em;
-	font-weight: 500;
-	color: var(--green);
+	font-size: 2.5em;
+	font-weight: 600;
+	padding: 1rem;
+	color: var(--black);
 	background-color: white;
-	padding: 1em;
-	/* width: 100%; */
-	border: 1px solid var(--green);
+	border: 1px solid var(--black);
+
+}
+
+.text-head:hover {
+	box-shadow: 0 0 10px 5px rgba(0, 0, 0, .05);
 }
 
 .hover-image {
 	position: fixed;
 	right: 1em;
 	bottom: 1em;
-	width: 30vw;
-	border: 1px var(--green) solid;
-	box-shadow: 0 0 20px 5px rgba(38, 157, 68, .3);
+	height: 50vh;
 }
