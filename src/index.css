@@ -107,6 +107,15 @@ video {
 	cursor: url('./pointer.png'), auto;
 }
 
+.about {
+	background-color: white;
+	padding: 1em;
+	border: 1px solid var(--green);
+	font-size: 1;
+	font-weight: 500;
+	transition: all 100ms linear
+}
+
 
 .left {
 	/* border: 1px solid red; */

@@ -2,6 +2,7 @@ import { createEffect, createMemo, createSignal, For, Show } from "solid-js"
 import { Transition } from "solid-transition-group"
 
 let [data, setData] = createSignal([])
+let [about, setAbout] = createSignal("")
 
 let aliases = {
   "360b": "360 Safety",
@@ -16,6 +17,7 @@ get_channel("3-hummus").then((res) => {
   let names = {}
   res.contents.forEach((block) => {
     if (block.class == "Image" || block.class == "Attachment") {
+      if (!block.title || block.title == "suh-dude.png") return
       if (!names[block.title]) { names[block.title] = { images: [] } }
 
       names[block.title].images.push(block.image.display.url)
@@ -32,7 +34,12 @@ get_channel("3-hummus").then((res) => {
     if (block.class == "Text") {
       console.log("text", block.title)
       console.log("name", names[block.title])
-      if (names[block.title]) {
+
+      if (block.title.toLowerCase() == "about") {
+        setAbout(block.content)
+      }
+
+      else if (names[block.title]) {
         names[block.title].desc = block.content
       }
     }
@@ -52,7 +59,6 @@ get_channel("3-hummus").then((res) => {
 })
 
 
-let about = []
 
 let [selected, setSelected] = createSignal(undefined)
 createEffect(() => console.log(selected()))
@@ -122,7 +128,6 @@ function ProjectPage() {
       <div class="title-bar">
         <div class="close"
           onclick={() => setSelected(undefined)}>Back</div>
-
         <h4 class="project-page-title">{selected_project().title}</h4>
         <Show when={selected_project().desc}> <p class="description">{selected_project().desc}</p> </Show>
         <div class="project-page-image-container">
@@ -143,7 +148,13 @@ function ProjectPage() {
 
 function About() {
   return (<div class="floating">
-    <div class="text-head"> <div class="number">3</div>About</div>
+    <div class="text-head">
+      <div class="number">3</div>
+      About
+    </div>
+    <div class="about" >
+      {about}
+    </div>
   </div>)
 }
 
