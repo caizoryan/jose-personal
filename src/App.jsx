@@ -20,7 +20,7 @@ get_channel("3-hummus").then((res) => {
       if (!block.title || block.title == "suh-dude.png") return
       if (!names[block.title]) { names[block.title] = { images: [] } }
 
-      names[block.title].images.push(block.image.display.url)
+      names[block.title].images.push(block.image.original.url)
 
       if (block.class == "Attachment") {
         console.log("blcok", block)
