@@ -1,30 +1,34 @@
 import { createEffect, createMemo, createSignal, For, Show } from "solid-js"
 import { Transition } from "solid-transition-group"
 
-let data = [
-  {
-    title: "Poster #1",
-    images: ["./assets/poster_1.jpg"]
-  },
+let [data, setData] = createSignal([])
 
-  {
-    title: "Booklet",
-    images: [
-      "./assets/booklet_1.png",
-      "./assets/booklet_0.png",
-      "./assets/booklet_2.png",
-      "./assets/booklet_3.png",
-      "./assets/booklet_4.png",
-      "./assets/booklet_5.png",
-      "./assets/booklet_6.png",
-      "./assets/booklet_7.png",
-      "./assets/booklet_8.png",
-      "./assets/booklet_9.png",
-      "./assets/booklet_10.png",
-      "./assets/booklet_11.png"
-    ]
-  }
-]
+let aliases = {
+  "360b": "360 Safety"
+}
+
+async function get_channel(slug) { return await fetch("https://api.are.na/v2/channels/" + slug + "?per=50").then(res => res.json()) }
+
+get_channel("3-hummus").then((res) => {
+  let names = {}
+  res.contents.forEach((block) => {
+    if (block.class != "Image") return
+
+    if (!names[block.title]) { names[block.title] = [] }
+    names[block.title].push(block.image.display.url)
+
+  })
+
+  let d = Object.entries(names)
+    .map(([key, value]) => ({
+      title: aliases[key] ? aliases[key] : key,
+      images: value
+    }))
+
+  setData(d)
+
+})
+
 
 let about = [
   `One of the most present short-comings of our modern infrastructure is the compromise in safety that the disconnection between set traffic laws and current safety demands has created in day-to-day life.`,
@@ -75,7 +79,7 @@ function About() {
 function Images() {
   return (<div class="images floating">
     <div class="text-head"> <div class="number">2</div>Projects</div>
-    <For each={data}>
+    <For each={data()}>
       {(e, i) => <Project
         index={i} title={e.title} images={e.images}></Project>}
     </For>
@@ -105,7 +109,7 @@ function Project(props) {
 
 function ProjectPage() {
   console.log("moutned")
-  let selected_project = createMemo(() => data[selected()])
+  let selected_project = createMemo(() => data()[selected()])
 
   return (
     <div class="project-page">
