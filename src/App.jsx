@@ -2,7 +2,7 @@ import { createEffect, createMemo, createSignal, For, Show } from "solid-js"
 import { Transition } from "solid-transition-group"
 
 let [data, setData] = createSignal([])
-let [about, setAbout] = createSignal("")
+let [about, setAbout] = createSignal([])
 
 let aliases = {
   "360b": "360 Safety",
@@ -23,7 +23,6 @@ get_channel("3-hummus").then((res) => {
       names[block.title].images.push(block.image.original.url)
 
       if (block.class == "Attachment") {
-        console.log("blcok", block)
         names[block.title].video = block.attachment.url
       }
     }
@@ -32,15 +31,13 @@ get_channel("3-hummus").then((res) => {
 
   res.contents.forEach(block => {
     if (block.class == "Text") {
-      console.log("text", block.title)
-      console.log("name", names[block.title])
-
       if (block.title.toLowerCase() == "about") {
-        setAbout(block.content)
+        setAbout(block.content.split(`\n`))
       }
 
       else if (names[block.title]) {
         names[block.title].desc = block.content
+        names[block.title].category = block.description
       }
     }
 
@@ -49,19 +46,19 @@ get_channel("3-hummus").then((res) => {
   let d = Object.entries(names)
     .map(([key, value]) => ({
       title: aliases[key] ? aliases[key] : key,
+      category: value.category,
       images: value.images,
       video: value.video,
       desc: value.desc
     }))
 
-  setData(d)
+  d.forEach((e) => console.log(e.title + " " + e.category))
 
+  setData(d)
 })
 
 
-
 let [selected, setSelected] = createSignal(undefined)
-createEffect(() => console.log(selected()))
 
 function Contents() {
   return (
@@ -82,7 +79,8 @@ function Contents() {
 function Title() {
   return (
     <div class="floating">
-      <div class="text-head">
+      <div class="text-head title">
+        <img class="logo" src="./logo.png"></img>
         <div class="title-text">Jose Montero</div>
       </div>
     </div>)
@@ -90,10 +88,10 @@ function Title() {
 
 function Images() {
   return (<div class="images floating">
-    <div class="text-head"> <div class="number">2</div>Projects</div>
+    <div class="text-head"> <div class="number"></div>Projects</div>
     <For each={data()}>
       {(e, i) => <Project
-        index={i} title={e.title} images={e.images}></Project>}
+        index={i} title={e.title} images={e.images} category={e.category}></Project>}
     </For>
   </div>)
 }
@@ -106,12 +104,13 @@ function Project(props) {
   const onclick = () => setSelected(props.index())
 
   return (
-    <div>
-      <h4 class="project-title"
-        onclick={onclick}
-        onmouseover={mouseover}
-        onmouseout={mouseout}
-      > {props.title} </h4>
+    <div class="project-title"
+      onclick={onclick}
+      onmouseover={mouseover}
+      onmouseout={mouseout} >
+      <h4 class="title"
+      > {props.title}</h4>
+      <span class="category">{props.category}</span>
       <Show when={showing()}>
         <img src={props.images[0]} class="hover-image"></img>
       </Show>
@@ -120,7 +119,6 @@ function Project(props) {
 }
 
 function ProjectPage() {
-  console.log("moutned")
   let selected_project = createMemo(() => data()[selected()])
 
   return (
@@ -149,11 +147,22 @@ function ProjectPage() {
 function About() {
   return (<div class="floating">
     <div class="text-head">
-      <div class="number">3</div>
+      <div class="about-number number"></div>
       About
     </div>
     <div class="about" >
-      {about}
+      <div class="text">
+        <For each={about()}>
+          {(e) => <p>{e}</p>}
+        </For>
+      </div>
+
+      <div class="email">
+        <img
+          style={{ width: "1rem", "padding-top": "1em" }}
+          src="./email.svg"></img>
+        josericardomontero17@gmail.com
+      </div>
     </div>
   </div>)
 }

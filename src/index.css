@@ -12,23 +12,27 @@
 }
 
 * {
+
+	/* -moz-hyphens: auto; */
+	/* -webkit-hyphens: auto; */
+	/* -ms-hyphens: auto; */
+	/* hyphens: auto; */
 	padding: 0;
 	margin: 0;
 	font-family: "polymath", sans-serif;
 	color: var(--black);
-	cursor: url('./cursor.png'), auto;
+	cursor: url('./cursor.png'), pointer;
 }
 
 .container {
 	width: 100vw;
 	height: 100vh;
-	/* overflow: hidden; */
-
+	overflow: hidden;
 }
 
 .content-grid {
 	display: grid;
-	grid-template-columns: 2fr 3fr;
+	grid-template-columns: 40% 60%;
 	width: 100vw;
 	height: 100vh;
 
@@ -45,7 +49,6 @@
 }
 
 .title-text {
-	font-size: 3em;
 	font-weight: 500;
 	color: var(--black);
 	padding: .5em;
@@ -104,23 +107,34 @@ video {
 	left: 2em;
 	top: 2em;
 
-	cursor: url('./pointer.png'), auto;
+	cursor: url('./pointer.png'), pointer;
+}
+
+.about-number.number {
+	background-color: #B2293D;
 }
 
 .about {
 	background-color: white;
-	padding: 1em;
-	border: 1px solid var(--green);
 	font-size: 1;
 	font-weight: 500;
-	transition: all 100ms linear
+	transition: all 100ms linear;
+}
+
+.about>.text {
+	border: none;
+}
+
+.email {
+	border-top: 1px solid black;
+	padding: 1rem;
 }
 
 
 .left {
 	/* border: 1px solid red; */
 	display: grid;
-	grid-template-rows: 50% 50%;
+	grid-template-rows: 30% 60%;
 }
 
 .right {
@@ -145,12 +159,18 @@ video {
 	background-color: white;
 	padding: 1em;
 	/* //width: 100%; */
-	border: 1px solid var(--green);
-	border-bottom: none;
+	border-top: 1px solid var(--green);
 	cursor: url('./pointer.png'), auto;
-	font-size: 1.2em;
-	font-weight: 500;
-	transition: all 100ms linear
+	font-size: 1.4em;
+	font-weight: 600;
+	transition: all 100ms linear;
+	display: flex;
+	justify-content: space-between;
+}
+
+.category {
+	font-size: .8em;
+	font-weight: 400;
 }
 
 .project-title:hover {
@@ -160,7 +180,9 @@ video {
 }
 
 .floating {
+	background-color: white;
 	margin: 1.5em;
+	outline: thick double #000;
 }
 
 .text {
@@ -172,6 +194,7 @@ video {
 
 p {
 	margin-bottom: 1em;
+	font-family: "brother-1816", sans-serif;
 }
 
 .images:last-child {
@@ -206,21 +229,52 @@ p {
 	z-index: 100;
 }
 
+
 .text-head {
 	font-size: 2.5em;
 	font-weight: 600;
 	padding: 1rem;
 	color: var(--black);
 	background-color: white;
-	border: 1px solid var(--black);
+
+	border-bottom: 1px solid var(--black);
 
 }
+
+.text-head.title {
+	height: calc(100%);
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+.logo {
+	position: absolute;
+	top: .5em;
+	left: .3em;
+	height: 80%;
+
+}
+
+
+.text-head.title .title-text {
+	font-size: 2.2em;
+	color: #376651;
+	mix-blend-mode: multiply;
+	font-family: "polymath display", "polymath", sans-serif;
+	line-height: 1.2em;
+	font-weight: 800;
+}
+
 
 .text-head:hover {
 	box-shadow: 0 0 10px 5px rgba(0, 0, 0, .05);
 }
 
 .hover-image {
+	pointer-events: none;
 	position: fixed;
 	right: 1em;
 	bottom: 1em;
